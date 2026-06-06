@@ -8,7 +8,8 @@ NyayaKosh is a comprehensive Indian law reference app built with Expo (React Nat
 
 ## Screenshots
 
-> *(Add your app screenshots here)*
+<img width="461" height="639" alt="Screenshot 2026-06-07 030544" src="https://github.com/user-attachments/assets/d9d84f12-7981-4d93-8b8a-0e32d7527f7a" />
+
 
 ---
 
@@ -78,7 +79,9 @@ pnpm --filter @workspace/api-server run dev
 pnpm --filter @workspace/mobile run dev
 ```
 
-Then scan the QR code with **Expo Go** on your phone.
+Then scan the QR code with **Expo Go** on your phone:
+<img width="235" height="422" alt="Screenshot 2026-06-07 031057" src="https://github.com/user-attachments/assets/24bc26c1-04e0-421b-891a-416e626af1f2" />
+
 
 ---
 
