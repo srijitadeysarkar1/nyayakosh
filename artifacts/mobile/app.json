@@ -1,0 +1,65 @@
+{
+  "expo": {
+    "name": "NyayaKosh",
+    "slug": "nyayakosh",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "nyayakosh",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "description": "India's comprehensive law reference app — 50 Acts, 446 sections, bail status, bookmarks, and daily legal updates. Know your rights.",
+    "primaryColor": "#FF9933",
+    "splash": {
+      "image": "./assets/images/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A0F1E"
+    },
+    "updates": {
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/nyayakosh-app"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.nyayakosh.app",
+      "buildNumber": "1"
+    },
+    "android": {
+      "backgroundColor": "#0A0F1E",
+      "package": "com.nyayakosh.app",
+      "versionCode": 1,
+      "permissions": [],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#0A0F1E"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://replit.com/"
+        }
+      ],
+      "expo-font",
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "nyayakosh-app"
+      }
+    }
+  }
+}

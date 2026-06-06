@@ -1,0 +1,199 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: news
+    description: Legal news and updates
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /news:
+    get:
+      operationId: listNews
+      tags: [news]
+      summary: List published news articles
+      description: Returns news articles ordered by newest first
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 50
+          description: Max number of articles to return
+      responses:
+        "200":
+          description: List of news articles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  articles:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/NewsArticle"
+                required:
+                  - articles
+    post:
+      operationId: createNewsArticle
+      tags: [news]
+      summary: Create a news article
+      description: Adds a new article. Requires Bearer token in Authorization header.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNewsArticle"
+      responses:
+        "201":
+          description: Article created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsArticle"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /news/{id}:
+    delete:
+      operationId: deleteNewsArticle
+      tags: [news]
+      summary: Delete a news article
+      description: Permanently deletes an article. Requires Bearer token.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                required:
+                  - ok
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    NewsArticle:
+      type: object
+      properties:
+        id:
+          type: integer
+        date:
+          type: string
+        category:
+          type: string
+        title:
+          type: string
+        summary:
+          type: string
+        tag:
+          type: string
+        tagColor:
+          type: string
+        published:
+          type: boolean
+        createdAt:
+          type: string
+      required:
+        - id
+        - date
+        - category
+        - title
+        - summary
+        - tag
+        - tagColor
+        - published
+        - createdAt
+    CreateNewsArticle:
+      type: object
+      properties:
+        date:
+          type: string
+          description: "Display date, e.g. 'May 27, 2026'"
+        category:
+          type: string
+          description: "e.g. Supreme Court, Parliament, SEBI, High Court"
+        title:
+          type: string
+        summary:
+          type: string
+        tag:
+          type: string
+          description: "e.g. Landmark Judgment, New Law, Amendment"
+        tagColor:
+          type: string
+          description: "Hex color for the tag badge, e.g. #DC2626"
+        published:
+          type: boolean
+          default: true
+      required:
+        - date
+        - category
+        - title
+        - summary
+        - tag
+        - tagColor
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
